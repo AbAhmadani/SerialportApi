@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#999"
+        android:padding="5dp"
+        android:text="数据格式"
+        android:textColor="#fff"
+        android:textSize="25sp" />
+
+    <RadioGroup
+        android:id="@+id/rg_code"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/rb_ascii"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ascii"
+            android:textSize="25sp" />
+
+        <RadioButton
+            android:id="@+id/rb_hex"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="HexString"
+            android:textSize="25sp" />
+
+    </RadioGroup>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="#999"
+        android:padding="5dp"
+        android:text="串口"
+        android:textColor="#fff"
+        android:textSize="25sp" />
+
+    <RadioGroup
+        android:id="@+id/rg_serial"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/rb_com0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="/dev/ttyCOM0"
+            android:textSize="25sp" />
+
+        <RadioButton
+            android:id="@+id/rb_s0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="/dev/ttyS0"
+            android:textSize="25sp" />
+
+        <RadioButton
+            android:id="@+id/rb_s1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="/dev/ttyS1"
+            android:textSize="25sp" />
+
+        <RadioButton
+            android:id="@+id/rb_s2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="/dev/ttyS2"
+            android:textSize="25sp" />
+
+        <RadioButton
+            android:id="@+id/rb_s3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="/dev/ttyS3"
+            android:textSize="25sp" />
+
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/btn_open"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:text="打开串口"
+        android:textSize="25sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="#999"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="5dp"
+            android:text="发送数据"
+            android:textColor="#fff"
+            android:textSize="25sp" />
+
+        <Button
+            android:id="@+id/clear_send"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="清空"
+            android:textSize="25sp" />
+
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/et_send"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:gravity="bottom"
+        android:padding="5dp" />
+
+    <Button
+        android:id="@+id/btn_send"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:text="发送"
+        android:textSize="25sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="#999"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="5dp"
+            android:text="接收数据"
+            android:textColor="#fff"
+            android:textSize="25sp" />
+
+        <Button
+            android:id="@+id/clear_read"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="清空"
+            android:textSize="25sp" />
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <TextView
+            android:id="@+id/tv_read"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp" />
+
+    </ScrollView>
+
+</LinearLayout>
