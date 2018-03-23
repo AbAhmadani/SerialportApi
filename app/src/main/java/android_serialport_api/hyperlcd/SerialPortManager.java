@@ -17,16 +17,15 @@ public class SerialPortManager {
 
     public static final String other = "other";
 
-    public static final String ttyUSB = "/dev/ttyCOM0";
+    public static final String ttyCOM0 = "/dev/ttyCOM0";
+    public static final String ttyCOM1 = "/dev/ttyCOM1";
+    public static final String ttyCOM2 = "/dev/ttyCOM2";
+    public static final String ttyCOM3 = "/dev/ttyCOM3";
     public static final String ttyS0 = "/dev/ttyS0";
     public static final String ttyS1 = "/dev/ttyS1";
     public static final String ttyS2 = "/dev/ttyS2";
     public static final String ttyS3 = "/dev/ttyS3";
     private SerialPort serialPort;
-
-    @StringDef({ttyUSB, ttyS0, ttyS1, ttyS2, ttyS3, other})
-    public @interface Port {
-    }
 
     public static final String demo = "demo";
     public static final String port = "port";

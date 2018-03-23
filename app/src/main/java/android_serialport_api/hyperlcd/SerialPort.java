@@ -52,11 +52,11 @@ public class SerialPort {
         this.logInterceptor = logInterceptor;
     }
 
-    private void log(@SerialPortManager.Type String type, @SerialPortManager.Port String port, boolean isAscii, CharSequence log) {
+    private void log(@SerialPortManager.Type String type, String port, boolean isAscii, CharSequence log) {
         log(type, port, isAscii, log == null ? "null" : log.toString());
     }
 
-    private void log(@SerialPortManager.Type String type, @SerialPortManager.Port String port, boolean isAscii, String log) {
+    private void log(@SerialPortManager.Type String type, String port, boolean isAscii, String log) {
         if (logInterceptor != null) {
             logInterceptor.log(type, port, isAscii, log);
         }
@@ -95,7 +95,7 @@ public class SerialPort {
             ReadThread readThread;
             android_serialport_api.SerialPort serialPort;
             if (serialPorts.containsKey(port)) {
-                serialPort = (android_serialport_api.SerialPort)(serialPorts.get(port));
+                serialPort = (android_serialport_api.SerialPort) (serialPorts.get(port));
                 inputStream = (InputStream) (inputStreams.get(port));
                 readThread = new ReadThread(port, inputStream, isAscii, readListener);
                 readThreads.put(port, readThread);
@@ -133,7 +133,15 @@ public class SerialPort {
         return success;
     }
 
-    public void setReadListener(@SerialPortManager.Port String port, ReadListener readListener) {
+    public void setReadCode(String port, boolean isAscii) {
+        if (readThreads.containsKey(port)) {
+            ReadThread readThread = (ReadThread) (readThreads.get(port));
+            log(SerialPortManager.port, port, readThread.isAscii, new StringBuffer().append("修改数据格式：").append(isAscii ? "ASCII" : "HexString"));
+            readThread.isAscii = isAscii;
+        }
+    }
+
+    public void setReadListener(String port, ReadListener readListener) {
         if (readThreads.containsKey(port)) {
             ReadThread readThread = (ReadThread) (readThreads.get(port));
             readThread.setReadListener(readListener);
