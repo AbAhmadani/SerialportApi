@@ -1,22 +1,24 @@
 package com.hyperlcd.serialport;
 
 import android.os.Bundle;
-import android.support.annotation.IdRes;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.CompoundButton;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.IdRes;
+import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.ArrayList;
+
+import android_serialport_api.hyperlcd.BaseReader;
 import android_serialport_api.hyperlcd.LogInterceptorSerialPort;
-import android_serialport_api.hyperlcd.ReadListener;
-import android_serialport_api.hyperlcd.SerialPort;
 import android_serialport_api.hyperlcd.SerialPortManager;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -25,37 +27,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private RadioGroup serialRG;
     private EditText serialET;
     private EditText sendET;
+    private Spinner spinner_baudrate;
     private TextView readTV;
     private TextView logTV;
     private TextView serialTitle;
     private TextView codeTitle;
 
     private String currentPort;
-    private SerialPort serialPort;
-    private ReadListener readListener;
-    private boolean isAscii;
-
+    private BaseReader baseReader;
+    private SerialPortManager spManager;
+    ArrayList<String> baudratelist = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         initView();
-
         initData();
     }
 
     private void initData() {
-        SerialPortManager.getInstances().initSerialPort();
-        SerialPortManager.getInstances().setLogInterceptor(new LogInterceptorSerialPort() {
+        spManager = SerialPortManager.getInstances().setLogInterceptor(new LogInterceptorSerialPort() {
             @Override
             public void log(@SerialPortManager.Type final String type, final String port, final boolean isAscii, final String log) {
                 Log.d("SerialPortLog", new StringBuffer()
-                        .append("串口号：").append(port)
-                        .append("\n数据格式：").append(isAscii ? "ascii" : "hexString")
-                        .append("\n操作类型：").append(type)
-                        .append("操作消息：").append(log).toString());
+                        .append("Serial port number ").append(port)
+                        .append("\nData Format ").append(isAscii ? "ascii" : "hexString")
+                        .append("\nOperation type ").append(type)
+                        .append("Operation message ").append(log).toString());
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -69,11 +68,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 });
             }
         });
-
-        serialPort = SerialPortManager.getInstances().getSerialPort();
-        readListener = new ReadListener() {
+        baseReader = new BaseReader() {
             @Override
-            public void onRead(final String port, final boolean isAscii, final String read) {
+            protected void onParse(final String port, final boolean isAscii, final String read) {
+                System.out.println("here");
                 Log.d("SerialPortRead", new StringBuffer()
                         .append(port).append("/").append(isAscii ? "ascii" : "hex")
                         .append(" read：").append(read).append("\n").toString());
@@ -95,7 +93,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         serialRG = (RadioGroup) findViewById(R.id.rg_serial);
 
         serialET = (EditText) findViewById(R.id.et_serial);
-
+        spinner_baudrate = (Spinner) findViewById(R.id.spinner_baudrate);
+        baudratelist.add("110");
+        baudratelist.add("300");
+        baudratelist.add("600");
+        baudratelist.add("1200");
+        baudratelist.add("2400");
+        baudratelist.add("4800");
+        baudratelist.add("9600");
+        baudratelist.add("14400");
+        baudratelist.add("19200");
+        baudratelist.add("38400");
+        baudratelist.add("57600");
+        baudratelist.add("115200");
+        baudratelist.add("128000");
+        baudratelist.add("256000");
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_spinner_item, baudratelist);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner_baudrate.setAdapter(dataAdapter);
+        spinner_baudrate.setSelection(6);
         sendET = (EditText) findViewById(R.id.et_send);
         serialTitle = (TextView) findViewById(R.id.title_serial);
         codeTitle = (TextView) findViewById(R.id.title_code);
@@ -143,7 +159,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     protected void onDestroy() {
-        SerialPortManager.getInstances().destroySerialPort();
+        spManager.destroy();
         super.onDestroy();
     }
 
@@ -173,46 +189,33 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void send() {
-        if (serialPort == null) {
-            // 串口未初始化
-            T("串口未初始化");
-            return;
-        }
-
         if (TextUtils.isEmpty(currentPort)) {
-            // 串口未打开
-            T("串口未打开");
+            // The serial port is not open
+            T("The serial port is not open");
             return;
         }
 
         String send = sendET.getText().toString().trim();
         if (TextUtils.isEmpty(send)) {
-            // 发送数据为空
-            T("发送数据为空");
+            // Send data is empty
+            T("Send data is empty");
             return;
         }
-        // 发送数据
-        try {
-            serialPort.writeSerialService(currentPort, isAscii, send);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        // send data
+        spManager.send(currentPort, send);
     }
 
     /**
-     * 打开串口
+     * Open the serial port
      */
     private void open() {
-        if (serialPort == null) {
-            return;
-        }
         String checkPort = getCurrentPort();
         if (TextUtils.isEmpty(checkPort)) {
             return;
-        } else if (TextUtils.equals(checkPort, SerialPortManager.other)) {
+        } else if (TextUtils.equals(checkPort, "other")) {
             checkPort = serialET.getText().toString().trim();
             if (TextUtils.isEmpty(checkPort)) {
-                T("请输入串口号");
+                T("Please enter the serial port number");
                 return;
             }
         }
@@ -222,36 +225,35 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         if (!TextUtils.isEmpty(currentPort)) {
-            // 关闭currentPort串口
-            serialPort.stopSerialPort(currentPort);
+            // Close currentPort serial port
+            spManager.stopSerialPort(currentPort);
         }
-
-        isAscii = codeRG.getCheckedRadioButtonId() == R.id.rb_ascii;
+        boolean isAscii = codeRG.getCheckedRadioButtonId() == R.id.rb_ascii;
         currentPort = checkPort;
-        // 打开checkPort串口
-        serialPort.startSerialPort(checkPort, isAscii, readListener);
-
-        serialTitle.setText("串口：");
+        // Close currentPort serial port
+        spManager.startSerialPort(checkPort, Integer.parseInt(spinner_baudrate.getSelectedItem().toString()), isAscii, baseReader);
+        spManager.setReader(checkPort, baseReader);
+        serialTitle.setText("Serial port ");
         serialTitle.append(currentPort);
-        codeTitle.setText("数据格式：");
+        codeTitle.setText("Data Format ");
         codeTitle.append(isAscii ? "ASCII" : "HexString");
     }
 
     /**
-     * 关闭串口
+     * Close the serial port
      */
     private void close() {
         if (!TextUtils.isEmpty(currentPort)) {
-            // 关闭currentPort串口
-            serialPort.stopSerialPort(currentPort);
+            // Close currentPort serial port
+            spManager.stopSerialPort(currentPort);
             currentPort = "";
-            serialTitle.setText("串口");
-            codeTitle.setText("数据格式");
+            serialTitle.setText("Serial port");
+            codeTitle.setText("Data Format");
         }
     }
 
     /**
-     * 更改数据格式
+     * Change the data format
      *
      * @param isAscii true:ascii false:HexString
      */
@@ -259,13 +261,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (TextUtils.isEmpty(currentPort)) {
             return;
         }
-        serialPort.setReadCode(currentPort, isAscii);
-        codeTitle.setText("数据格式：");
+        spManager.setReadCode(currentPort, isAscii);
+        codeTitle.setText("Data Format ");
         codeTitle.append(isAscii ? "ASCII" : "HexString");
     }
 
     /**
-     * 获取选中的串口号
+     * Get the selected serial port number
      *
      * @return
      */
@@ -296,8 +298,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.rb_s3:
                 checkPort = SerialPortManager.ttyS3;
                 break;
+            case R.id.rb_gs0:
+                checkPort = SerialPortManager.ttyGS0;
+                break;
+            case R.id.rb_gs1:
+                checkPort = SerialPortManager.ttyGS1;
+                break;
+            case R.id.rb_gs2:
+                checkPort = SerialPortManager.ttyGS2;
+                break;
+            case R.id.rb_gs3:
+                checkPort = SerialPortManager.ttyGS3;
+                break;
             case R.id.rb_other:
-                checkPort = SerialPortManager.other;
+                checkPort = "other";
                 break;
             default:
                 checkPort = "";

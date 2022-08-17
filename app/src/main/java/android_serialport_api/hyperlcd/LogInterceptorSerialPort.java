@@ -2,19 +2,19 @@ package android_serialport_api.hyperlcd;
 
 /**
  * Created by ADan on 2018/3/1.
- * 串口日志拦截器
+ * Serial log interceptor
  */
 
-public abstract class LogInterceptorSerialPort {
+public interface LogInterceptorSerialPort {
 
     /**
-     * 操作日志输出回调
+     * Operation log output callback
      *
-     * @param type    日志类型
-     * @param port    串口
-     * @param isAscii true:ASCII编码 false:十六进制编码
-     * @param log     日志内容
+     * @param type    Log type
+     * @param port    Serial port
+     * @param isAscii true:ASCIIEncoding false: hexadecimal encoding
+     * @param log     Log content
      */
-    public abstract void log(@SerialPortManager.Type String type, String port, boolean isAscii, String log);
+    void log(@SerialPortManager.Type String type, String port, boolean isAscii, String log);
 
 }

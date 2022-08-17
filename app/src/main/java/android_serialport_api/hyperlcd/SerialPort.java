@@ -1,51 +1,32 @@
 package android_serialport_api.hyperlcd;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.HashMap;
 
 /**
  * Created by ADan on 2017/9/16.
  */
 
-public class SerialPort {
+class SerialPort {
 
-    private static SerialPort instance;
-    private HashMap serialPorts;
-    private HashMap inputStreams;
-    private HashMap outputStreams;
-    private HashMap readThreads;
+    private android_serialport_api.SerialPort serialPort;
+    private InputStream inputStream;
+    private OutputStream outputStream;
+    private ReadThread readThread;
+    private String port;
+    private boolean open;
+    private boolean isAscii;
+    private int baudRate;
+    private int flags;
     private LogInterceptorSerialPort logInterceptor;
 
-    private SerialPort() {
-        serialPorts = new HashMap<String, android_serialport_api.SerialPort>();
-        inputStreams = new HashMap<String, InputStream>();
-        outputStreams = new HashMap<String, OutputStream>();
-        readThreads = new HashMap<String, ReadThread>();
-        log(SerialPortManager.demo, SerialPortManager.other, true, "启动串口模块：SerialPort.onCreate");
-    }
-
-    public static SerialPort getInstance() {
-        if (instance == null) {
-            synchronized (SerialPort.class) {
-                if (instance == null) {
-                    instance = new SerialPort();
-                }
-            }
-        }
-        return instance;
-    }
-
-    public void destroy() {
-        serialPorts = null;
-        inputStreams = null;
-        outputStreams = null;
-        readThreads = null;
-        logInterceptor = null;
-        instance = null;
-        log(SerialPortManager.demo, SerialPortManager.other, true, "关闭串口模块：SerialPort.onDestroy");
-        System.gc();
+    public SerialPort(String port, boolean isAscii, int baudRate, int flags) {
+        this.port = port;
+        this.isAscii = isAscii;
+        this.baudRate = baudRate;
+        this.flags = flags;
     }
 
     public void setLogInterceptor(LogInterceptorSerialPort logInterceptor) {
@@ -63,128 +44,100 @@ public class SerialPort {
     }
 
     /**
-     * 启动串口 默认波特率9600
+     * Start the serial port, the default baud rate is 9600
      *
-     * @param port         串口号
-     * @param isAscii      是否是Ascii编码，否的话用16进制编码
-     * @param readListener 拼接器
+     * @param reader
      */
-    public boolean startSerialPort(String port, boolean isAscii, ReadListener readListener) {
-        return startSerialPort(port, 9600, 0, isAscii, readListener);
-    }
-
-    /**
-     * 启动串口
-     *
-     * @param port         串口号
-     * @param baudRate     波特率
-     * @param flags        标记
-     * @param isAscii      是否是Ascii编码，否的话用16进制编码
-     * @param readListener 拼接器
-     */
-    public boolean startSerialPort(String port, int baudRate, int flags, boolean isAscii, ReadListener readListener) {
-
-        boolean success = false;
+    public boolean open(BaseReader reader) {
         log(SerialPortManager.port, port, isAscii,
-                new StringBuffer().append("波特率：")
-                        .append(baudRate).append(" 标记位：").append(flags)
-                        .append(" 启动串口"));
+                new StringBuffer().append("Baud rate ")
+                        .append(baudRate).append(" Mark bit ").append(flags)
+                        .append(" Start the serial port"));
+        if (open) {
+            log(SerialPortManager.port, port, isAscii, new StringBuffer().append("Startup failed: the serial port has been started"));
+            return open;
+        }
         try {
-            InputStream inputStream;
-            OutputStream outputStream;
-            ReadThread readThread;
-            android_serialport_api.SerialPort serialPort;
-            if (serialPorts.containsKey(port)) {
-                serialPort = (android_serialport_api.SerialPort) (serialPorts.get(port));
-                inputStream = (InputStream) (inputStreams.get(port));
-                readThread = new ReadThread(port, inputStream, isAscii, readListener);
-                readThreads.put(port, readThread);
-                readThread.start();
-                success = true;
-                log(SerialPortManager.port, port, isAscii, new StringBuffer().append("启动成功"));
+            serialPort = new android_serialport_api.SerialPort(new File(port), 9600, 0);
+            if (serialPort == null) {
+                log(SerialPortManager.port, port, isAscii, new StringBuffer().append("Startup failed: SerialPort == null"));
             } else {
-                serialPort = new android_serialport_api.SerialPort(new File(port), 9600, 0);
-                if (serialPort == null) {
-                    log(SerialPortManager.port, port, isAscii, new StringBuffer().append("启动失败：SerialPort == null"));
-                } else {
-                    serialPorts.put(port, serialPort);
-                    inputStream = serialPort.getInputStream();
-                    if (inputStream == null) {
-                        throw new Exception("inputStream==null");
-                    }
-                    inputStreams.put(port, inputStream);
-                    outputStream = serialPort.getOutputStream();
-                    if (outputStream == null) {
-                        throw new Exception("outputStream==null");
-                    }
-                    outputStreams.put(port, outputStream);
-                    readThread = new ReadThread(port, inputStream, isAscii, readListener);
-                    readThreads.put(port, readThread);
-                    readThread.start();
-                    success = true;
-                    log(SerialPortManager.port, port, isAscii, new StringBuffer().append("启动成功"));
+                inputStream = serialPort.getInputStream();
+                if (inputStream == null) {
+                    throw new Exception("inputStream==null");
                 }
+                outputStream = serialPort.getOutputStream();
+                if (outputStream == null) {
+                    throw new Exception("outputStream==null");
+                }
+                readThread = new ReadThread(isAscii, reader);
+                readThread.start();
+                open = true;
+                log(SerialPortManager.port, port, isAscii, new StringBuffer().append("Successfully started"));
             }
         } catch (Exception e) {
             e.printStackTrace();
-            log(SerialPortManager.port, port, isAscii, new StringBuffer().append("启动失败：").append(e));
-            success = false;
+            log(SerialPortManager.port, port, isAscii, new StringBuffer().append("Startup failed: ").append(e));
+            open = false;
         }
-        return success;
+        return open;
     }
 
-    public void setReadCode(String port, boolean isAscii) {
-        if (readThreads.containsKey(port)) {
-            ReadThread readThread = (ReadThread) (readThreads.get(port));
-            log(SerialPortManager.port, port, readThread.isAscii, new StringBuffer().append("修改数据格式：").append(isAscii ? "ASCII" : "HexString"));
+    public boolean isOpen() {
+        return open;
+    }
+
+    public void setReadCode(boolean isAscii) {
+        if (readThread != null) {
             readThread.isAscii = isAscii;
+            log(SerialPortManager.port, port, readThread.isAscii, new StringBuffer().append("Modify data format: ").append(isAscii ? "ASCII" : "HexString"));
         }
     }
 
-    public void setReadListener(String port, ReadListener readListener) {
-        if (readThreads.containsKey(port)) {
-            ReadThread readThread = (ReadThread) (readThreads.get(port));
-            readThread.setReadListener(readListener);
+    public void setReader(BaseReader reader) {
+        if (readThread != null) {
+            readThread.setReader(reader);
         }
     }
 
     class ReadThread extends Thread {
 
         public boolean isRun;
-        public String port;
-        private InputStream inputStream;
         public boolean isAscii;
-        private ReadListener readListener;
+        private BaseReader reader;
 
-        public ReadThread(String port, InputStream inputStream, boolean isAscii, ReadListener readListener) {
-            this.port = port;
-            this.inputStream = inputStream;
+        public ReadThread(boolean isAscii, BaseReader baseReader) {
+            reader = baseReader;
             this.isAscii = isAscii;
-            this.readListener = readListener;
-            if (readListener != null) {
-                readListener.setLogInterceptor(logInterceptor);
+            if (reader != null) {
+                reader.setLogInterceptor(logInterceptor);
             }
         }
 
         @Override
         public void run() {
-
-            isRun = true;
             if (inputStream == null) {
-                isRun = false;
                 return;
             }
+            isRun = true;
             while (isRun && !isInterrupted()) {
                 try {
-                    int size;
-                    byte[] buffer = new byte[512];
-                    size = inputStream.read(buffer);
-                    if (readListener != null) {
-                        if (size > 0) {
-                            if (isAscii) {
-                                readListener.onBaseRead(port, isAscii, new String(buffer, 0, size));
-                            } else {
-                                readListener.onBaseRead(port, isAscii, TransformUtils.bytes2HexString(buffer, size));
+                    // Prevent thread IO blocking
+                    if (inputStream.available() > 0) {
+
+                        int size;
+                        byte[] buffer = new byte[512];
+                        /**
+                         * When the data cannot be read, the method will wait until the data is read
+                         * The thread cannot be interrupted when it is in the io blocking state. Even if it is interrupted, when there is data coming, the program will execute to the interrupt mark, so
+                         */
+                        size = inputStream.read(buffer);
+                        if (!isRun) {
+                            break;
+                        }
+                        if (reader != null) {
+                            if (size > 0) {
+                                reader.onBaseRead(port, isAscii, buffer, size);
                             }
                         }
                     }
@@ -193,52 +146,78 @@ public class SerialPort {
                     e.printStackTrace();
                 }
             }
+            log(SerialPortManager.port, port, isAscii, "Thread terminated successfully released resources");
         }
 
         public void stopRead() {
             isRun = false;
         }
 
-        public void setReadListener(ReadListener readListener) {
-            this.readListener = readListener;
+        public void setReader(BaseReader baseReader) {
+            reader = baseReader;
+            if (reader != null) {
+                reader.setLogInterceptor(logInterceptor);
+            }
         }
     }
 
-    public void stopSerialPort(String port) {
+    public void write(String cmd) {
+        write(isAscii, cmd);
+    }
 
-        if (readThreads.containsKey(port)) {
-            ReadThread readThread = (ReadThread) (readThreads.get(port));
-            log(SerialPortManager.port, port, true, "关闭串口");
+    public void write(boolean isAscii, String cmd) {
+        log(SerialPortManager.write, port, isAscii, new StringBuffer().append("Write: ").append(cmd));
+        if (outputStream != null) {
+            synchronized (outputStream) {
+                byte[] bytes;
+                try {
+                    if (isAscii) {
+                        bytes = cmd.getBytes();
+                    } else {
+                        bytes = TransformUtils.hexStringToBytes(cmd);
+                    }
+                    outputStream.write(bytes);
+                } catch (Exception e) {
+                    log(SerialPortManager.write, port, isAscii, new StringBuffer().append("Write failure:").append(e));
+                }
+            }
+            log(SerialPortManager.write, port, isAscii, new StringBuffer().append("Written successfully: ").append(cmd));
+        } else {
+            log(SerialPortManager.write, port, isAscii, new StringBuffer().append("Write failure: outputStream is null"));
+        }
+    }
+
+    public void close() {
+        try {
+            open = false;
             if (readThread != null) {
                 readThread.stopRead();
-                readThread.interrupt();
-                readThreads.remove(port);
-                log(SerialPortManager.port, port, readThread.isAscii, "关闭串口成功");
-            }
-        } else {
-            log(SerialPortManager.port, port, false, "关闭串口失败：串口未开启");
-        }
-    }
-
-    public void writeSerialService(String port, boolean isAscii, String cmd) throws Exception {
-        log(SerialPortManager.write, port, isAscii, new StringBuffer().append("串口写：").append(cmd));
-        if (outputStreams.containsKey(port)) {
-            OutputStream outputStream = (OutputStream) (outputStreams.get(port));
-            if (isAscii) {
-                outputStream.write(cmd.getBytes());
+                log(SerialPortManager.port, port, readThread.isAscii, "Close the serial port successfully");
             } else {
-                outputStream.write(TransformUtils.hexStringToBytes(cmd));
-            }
-            log(SerialPortManager.write, port, isAscii, new StringBuffer().append("写成功：").append(cmd));
-        } else {
-            if (serialPorts.containsKey(port)) {
-                log(SerialPortManager.write, port, isAscii, new StringBuffer().append("写失败：outputStream is null"));
-                throw new Exception("outputStream is null");
-            } else {
-                log(SerialPortManager.write, port, isAscii, new StringBuffer().append("写失败：serialPorts is null"));
-                throw new Exception("serialPorts is null");
+                log(SerialPortManager.port, port, false, "Failed to close the serial port: the serial port is not open");
             }
 
+            if (inputStream != null) {
+                try {
+                    inputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if (outputStream != null) {
+                try {
+                    outputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if (serialPort != null) {
+                serialPort.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

@@ -11,22 +11,22 @@ import java.util.Locale;
 public class TransformUtils {
 
     /**
-     * 16进制数字字符集
+     * Hexadecimal digit character set
      */
     private static String hexString = "0123456789ABCDEF";
 
     /**
-     * ASCII字符串 转 16进制数字,适用于所有字符（包括中文）
+     * ASCII string to hexadecimal number, applicable to all characters (including Chinese)
      *
      * @param str
      * @return String
      */
     public static String asciiString2HexString(String str) throws UnsupportedEncodingException {
-        // 根据默认编码获取字节数组
+        // Get the byte array according to the default encoding
         byte[] bytes = null;
         bytes = str.getBytes("GBK");
         StringBuilder sb = new StringBuilder(bytes.length * 2);
-        // 将字节数组中每个字节拆解成2位16进制整数
+        // Disassemble each byte in the byte array into a 2-digit hexadecimal integer
         for (int i = 0; i < bytes.length; i++) {
             sb.append(hexString.charAt((bytes[i] & 0xf0) >> 4));
             sb.append(hexString.charAt((bytes[i] & 0x0f) >> 0));
@@ -35,7 +35,7 @@ public class TransformUtils {
     }
 
     /**
-     * 将16进制数字解码成字符串,适用于所有字符（包括中文）
+     * Decode hexadecimal numbers into strings, applicable to all characters (including Chinese)
      *
      * @param bytes
      * @return String
@@ -52,31 +52,31 @@ public class TransformUtils {
     }
 
     /**
-     * 字节数组 转 ASCII字符串
+     * Byte array to ASCII string
      *
-     * @param buffer 字节数组
-     * @param size   数据有效位长度
-     * @return ASCII字符串
+     * @param buffer byte array
+     * @param size data valid bit length
+     * @return ASCII string
      */
     public static String byte2AsciiString(byte[] buffer, int size) {
         return new String(buffer, 0, size);
     }
 
     /**
-     * 字符串 转 字节数组
+     * String to byte array
      *
-     * @param str Ascii字符串
-     * @return 字节数组
+     * @param str Ascii string
+     * @return byte array
      */
     public static byte[] AsciiString2byte(String str) {
         return str.getBytes();
     }
 
     /**
-     * 字节数组 转 16进制字符串
+     * Byte array to hexadecimal string
      *
-     * @param buffer 字节数组
-     * @param size   数据有效位长度
+     * @param buffer byte array
+     * @param size data valid bit length
      * @return String
      */
     public static String bytes2HexString(byte[] buffer, int size) {
@@ -95,7 +95,7 @@ public class TransformUtils {
     }
 
     /**
-     * 16进制字符串 转 字节数组
+     * Hexadecimal string to byte array
      *
      * @param hex
      * @return
@@ -110,7 +110,7 @@ public class TransformUtils {
     }
 
     /**
-     * 将两个ASCII字符合成一个字节； 如："EF"--> 0xEF
+     * Combine two ASCII characters into one byte; such as: "EF"--> 0xEF
      *
      * @param src0 byte
      * @param src1 byte

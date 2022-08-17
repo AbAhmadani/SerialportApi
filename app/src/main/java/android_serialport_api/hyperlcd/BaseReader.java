@@ -5,18 +5,26 @@ package android_serialport_api.hyperlcd;
  * Created by ADan on 2017/12/4.
  */
 
-public abstract class ReadListener {
+public abstract class BaseReader {
 
     private LogInterceptorSerialPort logInterceptor;
+    public String port;
+    public boolean isAscii;
 
-    public void onBaseRead(String port, boolean isAscii, String read) {
-        if (logInterceptor != null) {
-            logInterceptor.log(SerialPortManager.read, port, isAscii, read);
+    void onBaseRead(String port, boolean isAscii, byte[] buffer, int size) {
+        this.port = port;
+        this.isAscii = isAscii;
+        String read;
+        if (isAscii) {
+            read = new String(buffer, 0, size);
+        } else {
+            read = TransformUtils.bytes2HexString(buffer, size);
         }
-        onRead(port, isAscii, read);
+        log(SerialPortManager.read, port, isAscii, new StringBuffer("read ").append(read));
+        onParse(port, isAscii, read);
     }
 
-    public abstract void onRead(String port, boolean isAscii, String read);
+    protected abstract void onParse(String port, boolean isAscii, String read);
 
     public void setLogInterceptor(LogInterceptorSerialPort logInterceptor) {
         this.logInterceptor = logInterceptor;

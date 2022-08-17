@@ -5,341 +5,401 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/title_serial"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="#999"
-            android:padding="5dp"
-            android:text="串口"
-            android:textColor="#fff"
-            android:textSize="25sp" />
+            android:orientation="vertical"
+            android:padding="16dp">
 
-        <TextView
-            android:id="@+id/title_code"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="#999"
-            android:padding="5dp"
-            android:text="数据格式"
-            android:textColor="#fff"
-            android:textSize="25sp" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="#999"
-            android:padding="5dp"
-            android:text="操作"
-            android:textColor="#fff"
-            android:textSize="25sp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:orientation="horizontal">
-
-        <ScrollView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:fadeScrollbars="true"
-            android:scrollbarSize="5dp">
-
-            <RadioGroup
-                android:id="@+id/rg_serial"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingLeft="5dp">
+                android:orientation="horizontal">
 
-                <RadioButton
-                    android:id="@+id/rb_com0"
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/title_serial"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="/dev/ttyCOM0"
+                    android:layout_weight="1"
+                    android:background="#999"
+                    android:padding="5dp"
+                    android:text="Serial port"
+                    android:textColor="#fff"
                     android:textSize="25sp" />
 
-                <RadioButton
-                    android:id="@+id/rb_com1"
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/title_code"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="/dev/ttyCOM1"
+                    android:layout_weight="1"
+                    android:background="#999"
+                    android:padding="5dp"
+                    android:text="Data Format"
+                    android:textColor="#fff"
                     android:textSize="25sp" />
 
-                <RadioButton
-                    android:id="@+id/rb_com2"
-                    android:layout_width="match_parent"
+                <TextView
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="/dev/ttyCOM2"
+                    android:layout_weight="1"
+                    android:background="#999"
+                    android:padding="5dp"
+                    android:text="Baud Rate"
+                    android:textColor="#fff"
                     android:textSize="25sp" />
 
-                <RadioButton
-                    android:id="@+id/rb_com3"
-                    android:layout_width="match_parent"
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:orientation="horizontal">
+
+                <androidx.core.widget.NestedScrollView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:fadeScrollbars="true"
+                    android:scrollbarSize="5dp">
+
+                    <RadioGroup
+                        android:id="@+id/rg_serial"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingLeft="5dp">
+
+                        <RadioButton
+                            android:id="@+id/rb_com0"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="/dev/ttyCOM0"
+                            android:textSize="25sp" />
+
+                        <RadioButton
+                            android:id="@+id/rb_com1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="/dev/ttyCOM1"
+                            android:textSize="25sp" />
+
+                        <RadioButton
+                            android:id="@+id/rb_com2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="/dev/ttyCOM2"
+                            android:textSize="25sp" />
+
+                        <RadioButton
+                            android:id="@+id/rb_com3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="/dev/ttyCOM3"
+                            android:textSize="25sp" />
+
+                        <RadioButton
+                            android:id="@+id/rb_s0"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="/dev/ttyS0"
+                            android:textSize="25sp" />
+
+                        <RadioButton
+                            android:id="@+id/rb_s1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="/dev/ttyS1"
+                            android:textSize="25sp" />
+
+                        <RadioButton
+                            android:id="@+id/rb_s2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="/dev/ttyS2"
+                            android:textSize="25sp" />
+
+                        <RadioButton
+                            android:id="@+id/rb_s3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="/dev/ttyS3"
+                            android:textSize="25sp" />
+
+                        <RadioButton
+                            android:id="@+id/rb_gs0"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="/dev/ttyGS0"
+                            android:textSize="25sp" />
+
+                        <RadioButton
+                            android:id="@+id/rb_gs1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="/dev/ttyGS1"
+                            android:textSize="25sp" />
+
+                        <RadioButton
+                            android:id="@+id/rb_gs2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="/dev/ttyGS2"
+                            android:textSize="25sp" />
+
+                        <RadioButton
+                            android:id="@+id/rb_gs3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="/dev/ttyGS3"
+                            android:textSize="25sp" />
+
+                        <RadioButton
+                            android:id="@+id/rb_other"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="other"
+                            android:textSize="25sp" />
+
+                        <EditText
+                            android:id="@+id/et_serial"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Enter Serial Port"
+                            android:padding="5dp"
+                            android:text="/dev/ttyCOM5"
+                            android:textSize="25sp" />
+
+                    </RadioGroup>
+
+                </androidx.core.widget.NestedScrollView>
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#999" />
+
+                <RadioGroup
+                    android:id="@+id/rg_code"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="/dev/ttyCOM3"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:paddingLeft="5dp">
+
+                    <RadioButton
+                        android:id="@+id/rb_ascii"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ASCII"
+                        android:textSize="25sp" />
+
+                    <RadioButton
+                        android:id="@+id/rb_hex"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="HexString"
+                        android:textSize="25sp" />
+
+
+                </RadioGroup>
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#999" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+
+                    <Spinner
+                        android:id="@+id/spinner_baudrate"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:padding="5dp"
+                        android:textSize="25sp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="#999"
+                        android:padding="5dp"
+                        android:text="operate"
+                        android:textColor="#fff"
+                        android:textSize="25sp" />
+
+                    <Button
+                        android:id="@+id/btn_open"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        android:text="Open serial port"
+                        android:textSize="25sp" />
+
+                    <Button
+                        android:id="@+id/btn_close"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        android:text="Close serial port"
+                        android:textSize="25sp" />
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="#999"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="5dp"
+                    android:text="send data"
+                    android:textColor="#fff"
                     android:textSize="25sp" />
 
-                <RadioButton
-                    android:id="@+id/rb_s0"
-                    android:layout_width="match_parent"
+                <Button
+                    android:id="@+id/clear_send"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="/dev/ttyS0"
+                    android:padding="5dp"
+                    android:text="Empty"
                     android:textSize="25sp" />
 
-                <RadioButton
-                    android:id="@+id/rb_s1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="/dev/ttyS1"
-                    android:textSize="25sp" />
+            </LinearLayout>
 
-                <RadioButton
-                    android:id="@+id/rb_s2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="/dev/ttyS2"
-                    android:textSize="25sp" />
-
-                <RadioButton
-                    android:id="@+id/rb_s3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="/dev/ttyS3"
-                    android:textSize="25sp" />
-
-                <RadioButton
-                    android:id="@+id/rb_other"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="other"
-                    android:textSize="25sp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
                 <EditText
-                    android:id="@+id/et_serial"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="请输入串口号"
+                    android:id="@+id/et_send"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_weight="1"
+                    android:gravity="bottom"
                     android:padding="5dp"
                     android:textSize="25sp" />
 
-            </RadioGroup>
+                <Button
+                    android:id="@+id/btn_send"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="send"
+                    android:textSize="25sp" />
 
-        </ScrollView>
+            </LinearLayout>
 
-        <View
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:background="#999" />
-
-        <RadioGroup
-            android:id="@+id/rg_code"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:paddingLeft="5dp">
-
-            <RadioButton
-                android:id="@+id/rb_ascii"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="ASCII"
-                android:textSize="25sp" />
+                android:layout_marginTop="10dp"
+                android:background="#999"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
-            <RadioButton
-                android:id="@+id/rb_hex"
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="5dp"
+                    android:text="Receive data"
+                    android:textColor="#fff"
+                    android:textSize="25sp" />
+
+                <Button
+                    android:id="@+id/clear_read"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="Empty"
+                    android:textSize="25sp" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#999" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="5dp"
+                    android:text="Operation log"
+                    android:textColor="#fff"
+                    android:textSize="25sp" />
+
+                <Button
+                    android:id="@+id/clear_log"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="Empty"
+                    android:textSize="25sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="HexString"
-                android:textSize="25sp" />
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
 
-        </RadioGroup>
+                <ScrollView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:fillViewport="true">
 
-        <View
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:background="#999" />
+                    <TextView
+                        android:id="@+id/tv_read"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="#000"
+                        android:textSize="20sp" />
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
+                </ScrollView>
 
-            <Button
-                android:id="@+id/btn_open"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:text="打开串口"
-                android:textSize="25sp" />
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#999" />
 
-            <Button
-                android:id="@+id/btn_close"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:text="关闭串口"
-                android:textSize="25sp" />
+                <ScrollView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:fillViewport="true">
+
+                    <TextView
+                        android:id="@+id/tv_log"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="#000"
+                        android:textSize="20sp" />
+
+                </ScrollView>
+
+            </LinearLayout>
 
         </LinearLayout>
-
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:background="#999"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:padding="5dp"
-            android:text="发送数据"
-            android:textColor="#fff"
-            android:textSize="25sp" />
-
-        <Button
-            android:id="@+id/clear_send"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="5dp"
-            android:text="清空"
-            android:textSize="25sp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <EditText
-            android:id="@+id/et_send"
-            android:layout_width="0dp"
-            android:layout_height="100dp"
-            android:layout_weight="1"
-            android:gravity="bottom"
-            android:padding="5dp"
-            android:textSize="25sp" />
-
-        <Button
-            android:id="@+id/btn_send"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="5dp"
-            android:text="发送"
-            android:textSize="25sp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:background="#999"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:padding="5dp"
-            android:text="接收数据"
-            android:textColor="#fff"
-            android:textSize="25sp" />
-
-        <Button
-            android:id="@+id/clear_read"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:padding="5dp"
-            android:text="清空"
-            android:textSize="25sp" />
-
-        <View
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:background="#999" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:padding="5dp"
-            android:text="操作日志"
-            android:textColor="#fff"
-            android:textSize="25sp" />
-
-        <Button
-            android:id="@+id/clear_log"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:padding="5dp"
-            android:text="清空"
-            android:textSize="25sp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
-
-        <ScrollView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:fillViewport="true">
-
-            <TextView
-                android:id="@+id/tv_read"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="#000"
-                android:textSize="20sp" />
-
-        </ScrollView>
-
-        <View
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:background="#999" />
-
-        <ScrollView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:fillViewport="true">
-
-            <TextView
-                android:id="@+id/tv_log"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="#000"
-                android:textSize="20sp" />
-
-        </ScrollView>
-
-    </LinearLayout>
-
-
+    </ScrollView>
 </LinearLayout>

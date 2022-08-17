@@ -3,7 +3,10 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/SerialportApi.iml" filepath="$PROJECT_DIR$/SerialportApi.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/SerialportApi.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/SerialportApi.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/SerialportApi.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/SerialportApi.app.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/SerialportApi.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/SerialportApi.app.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/SerialportApi.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/SerialportApi.app.unitTest.iml" />
     </modules>
   </component>
 </project>
