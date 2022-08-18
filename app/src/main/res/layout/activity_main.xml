@@ -24,32 +24,32 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="#999"
+                    android:background="@color/colorPrimary"
                     android:padding="5dp"
                     android:text="Serial port"
                     android:textColor="#fff"
-                    android:textSize="25sp" />
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/title_code"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="#999"
+                    android:background="@color/colorPrimary"
                     android:padding="5dp"
                     android:text="Data Format"
                     android:textColor="#fff"
-                    android:textSize="25sp" />
+                    android:textSize="18sp" />
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="#999"
+                    android:background="@color/colorPrimary"
                     android:padding="5dp"
                     android:text="Baud Rate"
                     android:textColor="#fff"
-                    android:textSize="25sp" />
+                    android:textSize="18sp" />
 
             </LinearLayout>
 
@@ -77,91 +77,91 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="/dev/ttyCOM0"
-                            android:textSize="25sp" />
+                            android:textSize="18sp" />
 
                         <RadioButton
                             android:id="@+id/rb_com1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="/dev/ttyCOM1"
-                            android:textSize="25sp" />
+                            android:textSize="18sp" />
 
                         <RadioButton
                             android:id="@+id/rb_com2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="/dev/ttyCOM2"
-                            android:textSize="25sp" />
+                            android:textSize="18sp" />
 
                         <RadioButton
                             android:id="@+id/rb_com3"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="/dev/ttyCOM3"
-                            android:textSize="25sp" />
+                            android:textSize="18sp" />
 
                         <RadioButton
                             android:id="@+id/rb_s0"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="/dev/ttyS0"
-                            android:textSize="25sp" />
+                            android:textSize="18sp" />
 
                         <RadioButton
                             android:id="@+id/rb_s1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="/dev/ttyS1"
-                            android:textSize="25sp" />
+                            android:textSize="18sp" />
 
                         <RadioButton
                             android:id="@+id/rb_s2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="/dev/ttyS2"
-                            android:textSize="25sp" />
+                            android:textSize="18sp" />
 
                         <RadioButton
                             android:id="@+id/rb_s3"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="/dev/ttyS3"
-                            android:textSize="25sp" />
+                            android:textSize="18sp" />
 
                         <RadioButton
                             android:id="@+id/rb_gs0"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="/dev/ttyGS0"
-                            android:textSize="25sp" />
+                            android:textSize="18sp" />
 
                         <RadioButton
                             android:id="@+id/rb_gs1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="/dev/ttyGS1"
-                            android:textSize="25sp" />
+                            android:textSize="18sp" />
 
                         <RadioButton
                             android:id="@+id/rb_gs2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="/dev/ttyGS2"
-                            android:textSize="25sp" />
+                            android:textSize="18sp" />
 
                         <RadioButton
                             android:id="@+id/rb_gs3"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="/dev/ttyGS3"
-                            android:textSize="25sp" />
+                            android:textSize="18sp" />
 
                         <RadioButton
                             android:id="@+id/rb_other"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="other"
-                            android:textSize="25sp" />
+                            android:textSize="18sp" />
 
                         <EditText
                             android:id="@+id/et_serial"
@@ -170,7 +170,7 @@
                             android:hint="Enter Serial Port"
                             android:padding="5dp"
                             android:text="/dev/ttyCOM5"
-                            android:textSize="25sp" />
+                            android:textSize="18sp" />
 
                     </RadioGroup>
 
@@ -179,7 +179,7 @@
                 <View
                     android:layout_width="1dp"
                     android:layout_height="match_parent"
-                    android:background="#999" />
+                    android:background="@color/colorPrimary" />
 
                 <RadioGroup
                     android:id="@+id/rg_code"
@@ -194,14 +194,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="ASCII"
-                        android:textSize="25sp" />
+                        android:textSize="18sp" />
 
                     <RadioButton
                         android:id="@+id/rb_hex"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="HexString"
-                        android:textSize="25sp" />
+                        android:textSize="18sp" />
 
 
                 </RadioGroup>
@@ -209,7 +209,7 @@
                 <View
                     android:layout_width="1dp"
                     android:layout_height="match_parent"
-                    android:background="#999" />
+                    android:background="@color/colorPrimary" />
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -223,17 +223,17 @@
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:padding="5dp"
-                        android:textSize="25sp" />
+                        android:textSize="18sp" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:background="#999"
+                        android:background="@color/colorPrimary"
                         android:padding="5dp"
-                        android:text="operate"
+                        android:text="operation"
                         android:textColor="#fff"
-                        android:textSize="25sp" />
+                        android:textSize="18sp" />
 
                     <Button
                         android:id="@+id/btn_open"
@@ -241,7 +241,7 @@
                         android:layout_height="wrap_content"
                         android:padding="5dp"
                         android:text="Open serial port"
-                        android:textSize="25sp" />
+                        android:textSize="18sp" />
 
                     <Button
                         android:id="@+id/btn_close"
@@ -249,7 +249,7 @@
                         android:layout_height="wrap_content"
                         android:padding="5dp"
                         android:text="Close serial port"
-                        android:textSize="25sp" />
+                        android:textSize="18sp" />
 
 
                 </LinearLayout>
@@ -261,7 +261,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:background="#999"
+                android:background="@color/colorPrimary"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
@@ -272,7 +272,7 @@
                     android:padding="5dp"
                     android:text="send data"
                     android:textColor="#fff"
-                    android:textSize="25sp" />
+                    android:textSize="18sp" />
 
                 <Button
                     android:id="@+id/clear_send"
@@ -280,7 +280,7 @@
                     android:layout_height="wrap_content"
                     android:padding="5dp"
                     android:text="Empty"
-                    android:textSize="25sp" />
+                    android:textSize="18sp" />
 
             </LinearLayout>
 
@@ -296,7 +296,7 @@
                     android:layout_weight="1"
                     android:gravity="bottom"
                     android:padding="5dp"
-                    android:textSize="25sp" />
+                    android:textSize="18sp" />
 
                 <Button
                     android:id="@+id/btn_send"
@@ -304,7 +304,7 @@
                     android:layout_height="wrap_content"
                     android:padding="5dp"
                     android:text="send"
-                    android:textSize="25sp" />
+                    android:textSize="18sp" />
 
             </LinearLayout>
 
@@ -312,7 +312,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:background="#999"
+                android:background="@color/colorPrimary"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
@@ -323,7 +323,7 @@
                     android:padding="5dp"
                     android:text="Receive data"
                     android:textColor="#fff"
-                    android:textSize="25sp" />
+                    android:textSize="18sp" />
 
                 <Button
                     android:id="@+id/clear_read"
@@ -331,12 +331,12 @@
                     android:layout_height="wrap_content"
                     android:padding="5dp"
                     android:text="Empty"
-                    android:textSize="25sp" />
+                    android:textSize="18sp" />
 
                 <View
                     android:layout_width="1dp"
                     android:layout_height="match_parent"
-                    android:background="#999" />
+                    android:background="@color/colorPrimary" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -345,7 +345,7 @@
                     android:padding="5dp"
                     android:text="Operation log"
                     android:textColor="#fff"
-                    android:textSize="25sp" />
+                    android:textSize="18sp" />
 
                 <Button
                     android:id="@+id/clear_log"
@@ -353,7 +353,7 @@
                     android:layout_height="wrap_content"
                     android:padding="5dp"
                     android:text="Empty"
-                    android:textSize="25sp" />
+                    android:textSize="18sp" />
 
             </LinearLayout>
 
@@ -380,7 +380,7 @@
                 <View
                     android:layout_width="1dp"
                     android:layout_height="match_parent"
-                    android:background="#999" />
+                    android:background="@color/colorPrimary" />
 
                 <ScrollView
                     android:layout_width="0dp"
