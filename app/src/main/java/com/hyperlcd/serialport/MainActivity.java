@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 
+import android_serialport_api.SerialPortFinder;
 import android_serialport_api.hyperlcd.BaseReader;
 import android_serialport_api.hyperlcd.LogInterceptorSerialPort;
 import android_serialport_api.hyperlcd.SerialPortManager;
@@ -44,6 +45,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         initView();
         initData();
+        try {
+            SerialPortFinder serialPortFinder = new SerialPortFinder();
+            System.out.println(serialPortFinder.getAllDevicesPath());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     private void initData() {
@@ -73,13 +81,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             protected void onParse(final String port, final boolean isAscii, final String read) {
                 System.out.println("here");
                 Log.d("SerialPortRead", new StringBuffer()
-                        .append(port).append("/").append(isAscii ? "ascii" : "hex")
+                        .append(port).append("/").append(isAscii ? "ascii" : "hexString")
                         .append(" read：").append(read).append("\n").toString());
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         readTV.append(new StringBuffer()
-                                .append(port).append("/").append(isAscii ? "ascii" : "hex")
+                                .append(port).append("/").append(isAscii ? "ascii" : "hexString")
                                 .append(" read：").append(read).append("\n").toString());
                     }
                 });
