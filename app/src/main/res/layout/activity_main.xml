@@ -73,90 +73,6 @@
                         android:paddingLeft="5dp">
 
                         <RadioButton
-                            android:id="@+id/rb_com0"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="/dev/ttyCOM0"
-                            android:textSize="18sp" />
-
-                        <RadioButton
-                            android:id="@+id/rb_com1"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="/dev/ttyCOM1"
-                            android:textSize="18sp" />
-
-                        <RadioButton
-                            android:id="@+id/rb_com2"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="/dev/ttyCOM2"
-                            android:textSize="18sp" />
-
-                        <RadioButton
-                            android:id="@+id/rb_com3"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="/dev/ttyCOM3"
-                            android:textSize="18sp" />
-
-                        <RadioButton
-                            android:id="@+id/rb_s0"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="/dev/ttyS0"
-                            android:textSize="18sp" />
-
-                        <RadioButton
-                            android:id="@+id/rb_s1"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="/dev/ttyS1"
-                            android:textSize="18sp" />
-
-                        <RadioButton
-                            android:id="@+id/rb_s2"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="/dev/ttyS2"
-                            android:textSize="18sp" />
-
-                        <RadioButton
-                            android:id="@+id/rb_s3"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="/dev/ttyS3"
-                            android:textSize="18sp" />
-
-                        <RadioButton
-                            android:id="@+id/rb_gs0"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="/dev/ttyGS0"
-                            android:textSize="18sp" />
-
-                        <RadioButton
-                            android:id="@+id/rb_gs1"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="/dev/ttyGS1"
-                            android:textSize="18sp" />
-
-                        <RadioButton
-                            android:id="@+id/rb_gs2"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="/dev/ttyGS2"
-                            android:textSize="18sp" />
-
-                        <RadioButton
-                            android:id="@+id/rb_gs3"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="/dev/ttyGS3"
-                            android:textSize="18sp" />
-
-                        <RadioButton
                             android:id="@+id/rb_other"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -169,8 +85,13 @@
                             android:layout_height="wrap_content"
                             android:hint="Enter Serial Port"
                             android:padding="5dp"
-                            android:text="/dev/ttyCOM5"
                             android:textSize="18sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Available Ports: "
+                            android:textSize="16sp" />
 
                     </RadioGroup>
 

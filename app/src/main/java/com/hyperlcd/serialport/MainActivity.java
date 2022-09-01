@@ -7,6 +7,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -47,7 +48,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         initData();
         try {
             SerialPortFinder serialPortFinder = new SerialPortFinder();
-            System.out.println(serialPortFinder.getAllDevicesPath());
+            String [] serialPorts = serialPortFinder.getAllDevices();
+            for (String s : serialPorts) {
+                RadioButton rdbtn = new RadioButton(this);
+                rdbtn.setId(View.generateViewId());
+                rdbtn.setText("/dev/" + s.substring(0, s.indexOf(" ")));
+                rdbtn.setTextSize(18);
+                rdbtn.setOnClickListener(this);
+                serialRG.addView(rdbtn);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -144,14 +153,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
-        serialET.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    serialRG.check(R.id.rb_other);
-                }
-            }
-        });
 
         findViewById(R.id.btn_open).setOnClickListener(this);
         findViewById(R.id.btn_close).setOnClickListener(this);
@@ -161,7 +162,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.clear_log).setOnClickListener(this);
 
         codeRG.check(R.id.rb_ascii);
-        serialRG.check(R.id.rb_com0);
         sendET.requestFocus();
     }
 
@@ -217,7 +217,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      * Open the serial port
      */
     private void open() {
-        String checkPort = getCurrentPort();
+        int selectedId = serialRG.getCheckedRadioButtonId();
+        RadioButton rb = (RadioButton) findViewById(selectedId);
+        String checkPort = rb.getText().toString();
         if (TextUtils.isEmpty(checkPort)) {
             return;
         } else if (TextUtils.equals(checkPort, "other")) {
@@ -279,53 +281,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      *
      * @return
      */
-    private String getCurrentPort() {
-        String checkPort;
-        switch (serialRG.getCheckedRadioButtonId()) {
-            case R.id.rb_com0:
-                checkPort = SerialPortManager.ttyCOM0;
-                break;
-            case R.id.rb_com1:
-                checkPort = SerialPortManager.ttyCOM1;
-                break;
-            case R.id.rb_com2:
-                checkPort = SerialPortManager.ttyCOM2;
-                break;
-            case R.id.rb_com3:
-                checkPort = SerialPortManager.ttyCOM3;
-                break;
-            case R.id.rb_s0:
-                checkPort = SerialPortManager.ttyS0;
-                break;
-            case R.id.rb_s1:
-                checkPort = SerialPortManager.ttyS1;
-                break;
-            case R.id.rb_s2:
-                checkPort = SerialPortManager.ttyS2;
-                break;
-            case R.id.rb_s3:
-                checkPort = SerialPortManager.ttyS3;
-                break;
-            case R.id.rb_gs0:
-                checkPort = SerialPortManager.ttyGS0;
-                break;
-            case R.id.rb_gs1:
-                checkPort = SerialPortManager.ttyGS1;
-                break;
-            case R.id.rb_gs2:
-                checkPort = SerialPortManager.ttyGS2;
-                break;
-            case R.id.rb_gs3:
-                checkPort = SerialPortManager.ttyGS3;
-                break;
-            case R.id.rb_other:
-                checkPort = "other";
-                break;
-            default:
-                checkPort = "";
-        }
-        return checkPort;
-    }
 
     private Toast toast;
     private TextView textView;
